@@ -17,53 +17,94 @@ import java.util.List;
 public class Transcriber {
     public static List<Integer> transcribe(String note) throws InvalidArgumentException {
         List<Integer> keys = new LinkedList<>();
-        switch(note) {
-            case "C1": {
-                keys.add(KeyEvent.VK_DOWN);
-                keys.add(KeyEvent.VK_D);
-                return keys;
+        if (note.isEmpty()) {
+            keys.add(KeyEvent.VK_Z);
+            keys.add(KeyEvent.VK_X);
+            keys.add(KeyEvent.VK_C);
+            return keys;
+        } else {
+            char[] chars = note.toCharArray();
+            switch(chars[0]) {
+                case 'C': {
+                    keys.add(KeyEvent.VK_D);
+                    break;
+                }
+                case 'D': {
+                    keys.add(KeyEvent.VK_A);
+                    keys.add(KeyEvent.VK_D);
+                    break;
+                }
+                case 'E': {
+                    keys.add(KeyEvent.VK_A);
+                    keys.add(KeyEvent.VK_S);
+                    break;
+                }
+                case 'F': {
+                    keys.add(KeyEvent.VK_A);
+                    break;
+                }
+                case 'G': {
+                    keys.add(KeyEvent.VK_C);
+                    break;
+                }
+                case 'A': {
+                    keys.add(KeyEvent.VK_Z);
+                    keys.add(KeyEvent.VK_X);
+                    break;
+                }
+                case 'B': {
+                    keys.add(KeyEvent.VK_X);
+                    break;
+                }
             }
-            case "D1": {
-                keys.add(KeyEvent.VK_DOWN);
-                keys.add(KeyEvent.VK_A);
-                keys.add(KeyEvent.VK_D);
-                return keys;
+            switch(chars[1]) {
+                case '1':
+                    keys.add(KeyEvent.VK_DOWN);
+                    break;
+                case '3':
+                    keys.add(KeyEvent.VK_UP);
+                    break;
             }
-            case "E1": {
-                keys.add(KeyEvent.VK_DOWN);
-                keys.add(KeyEvent.VK_A);
-                keys.add(KeyEvent.VK_S);
-                return keys;
-            }
-            case "F1": {
-                keys.add(KeyEvent.VK_DOWN);
-                keys.add(KeyEvent.VK_A);
-                return keys;
-            }
-            case "G1": {
-                keys.add(KeyEvent.VK_DOWN);
-                keys.add(KeyEvent.VK_C);
-                return keys;
-            }
-            case "A1": {
-                keys.add(KeyEvent.VK_DOWN);
-                keys.add(KeyEvent.VK_Z);
-                keys.add(KeyEvent.VK_X);
-                return keys;
-            }
-            case "B1": {
-                keys.add(KeyEvent.VK_DOWN);
-                keys.add(KeyEvent.VK_X);
-                return keys;
-            }
-            case "C2": {
-                keys.add(KeyEvent.VK_D);
-                return keys;
-            }
-            default: {
-                System.err.println(note + "is an invalid note.");
+            return keys;
+        }
+    }
+
+    public static List<Integer> translateTo2P(List<Integer> keys) {
+        for (int i = 0; i < keys.size(); i++) {
+            Integer key = keys.get(i);
+            switch(key) {
+                case KeyEvent.VK_A:
+                    keys.set(i, KeyEvent.VK_U);
+                    break;
+                case KeyEvent.VK_S:
+                    keys.set(i, KeyEvent.VK_I);
+                    break;
+                case KeyEvent.VK_D:
+                    keys.set(i, KeyEvent.VK_O);
+                    break;
+                case KeyEvent.VK_Z:
+                    keys.set(i, KeyEvent.VK_J);
+                    break;
+                case KeyEvent.VK_X:
+                    keys.set(i, KeyEvent.VK_K);
+                    break;
+                case KeyEvent.VK_C:
+                    keys.set(i, KeyEvent.VK_L);
+                    break;
+                case KeyEvent.VK_UP:
+                    keys.set(i, KeyEvent.VK_NUMPAD8);
+                    break;
+                case KeyEvent.VK_LEFT:
+                    keys.set(i, KeyEvent.VK_NUMPAD4);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    keys.set(i, KeyEvent.VK_NUMPAD5);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    keys.set(i, KeyEvent.VK_NUMPAD6);
+                    break;
             }
         }
-        return null;
+        return keys;
     }
 }
