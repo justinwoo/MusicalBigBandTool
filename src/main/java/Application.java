@@ -26,14 +26,17 @@ public class Application {
 //        Play the notes in notes.csv (needs to be changed later)
         FileReader fr = new FileReader("notes.csv");
         BufferedReader br = new BufferedReader(fr);
-        String line = br.readLine();
-        Integer pause = Integer.parseInt(line);
+        String line;
+        List<Integer> keys = null;
+        String rest;
 
         while ((line = br.readLine()) != null) {
-//            C1,200 gets split into C1 and 200
-            List<Integer> keys;
-            String rest;
+//            release the previous note's keys
+            if (keys != null) {
+                releaseKeys(robot, keys);
+            }
 
+//            C1,200 gets split into C1 and 200
             String split[] = line.split(",");
             if (split.length == 2) { // If line only contains one note
                 String note = split[0];
@@ -58,22 +61,20 @@ public class Application {
                     robot.keyPress(key);
                 }
             }
-            Thread.sleep(pause);
-            for (Integer key: keys) {
-                robot.keyRelease(key);
-            }
-
 //            Rest after the note has been played.
             Thread.sleep(Long.parseLong(rest));
         }
 
-////        Test keystrokes
-//        List<Integer> keys = Transcriber.transcribe("1C");
-//        for (Integer key : keys) {
-//            robot.keyPress(key);
-//        }
+//        Release keys one last time
+        releaseKeys(robot, keys);
 
         System.out.println("All done");
+    }
+
+    private static void releaseKeys(Robot robot, List<Integer> keys) {
+        for (Integer key: keys) {
+            robot.keyRelease(key);
+        }
     }
 
     private static void initTrumpet(Robot robot) throws InterruptedException {
