@@ -23,8 +23,12 @@ public class Application {
 //        Make Big Band pick up his trumpet to JAM!!!
         initTrumpet(robot);
 
-//        Play the notes in notes.csv (needs to be changed later)
-        FileReader fr = new FileReader("notes.csv");
+//        Play the notes in specified file or notes.csv
+        String file = "notes.csv";
+        if (args.length == 1) {
+            file = args[0];
+        }
+        FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         String line;
         List<Integer> keys = null;
