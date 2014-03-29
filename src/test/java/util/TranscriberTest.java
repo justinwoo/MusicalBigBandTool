@@ -17,7 +17,8 @@ public class TranscriberTest {
     @Test
     public void testTranscribe() throws Exception {
         List<Integer> keys = Transcriber.transcribe("D1");
-        assert(keys.get(0) == KeyEvent.VK_DOWN);
-        assert(keys.get(1) == KeyEvent.VK_D);
+        assert(keys.contains(KeyEvent.VK_A));
+        assert(keys.contains(KeyEvent.VK_D));
+        assert(keys.contains(KeyEvent.VK_DOWN));
     }
 }
