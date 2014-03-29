@@ -23,45 +23,84 @@ public class Transcriber {
             keys.add(KeyEvent.VK_C);
             return keys;
         } else {
-            char[] chars = note.toCharArray();
-            switch(chars[0]) {
-                case 'C': {
+            String pitch;
+            String octave;
+            if (note.length() == 2) {
+                pitch = note.substring(0, 1);
+                octave = note.substring(1, 2);
+            } else if (note.length() == 3) {
+                pitch = note.substring(0, 2);
+                octave = note.substring(2, 3);
+            } else {
+                throw new IllegalArgumentException("Note cannot contain more than three characters");
+            }
+            switch(pitch) {
+                case "C": {
                     keys.add(KeyEvent.VK_D);
                     break;
                 }
-                case 'D': {
+                case "Db":
+                case "C#": {
+                    keys.add(KeyEvent.VK_A);
+                    keys.add(KeyEvent.VK_S);
+                    keys.add(KeyEvent.VK_D);
+                    break;
+                }
+                case "D": {
                     keys.add(KeyEvent.VK_A);
                     keys.add(KeyEvent.VK_D);
                     break;
                 }
-                case 'E': {
+                case "Eb":
+                case "D#": {
+                    keys.add(KeyEvent.VK_S);
+                    keys.add(KeyEvent.VK_D);
+                    break;
+                }
+                case "E": {
                     keys.add(KeyEvent.VK_A);
                     keys.add(KeyEvent.VK_S);
                     break;
                 }
-                case 'F': {
+                case "F": {
                     keys.add(KeyEvent.VK_A);
                     break;
                 }
-                case 'G': {
+                case "Gb":
+                case "F#": {
+                    keys.add(KeyEvent.VK_S);
+                    break;
+                }
+                case "G": {
                     keys.add(KeyEvent.VK_C);
                     break;
                 }
-                case 'A': {
+                case "Ab":
+                case "G#": {
+                    keys.add(KeyEvent.VK_X);
+                    keys.add(KeyEvent.VK_C);
+                    break;
+                }
+                case "A": {
                     keys.add(KeyEvent.VK_Z);
                     keys.add(KeyEvent.VK_X);
                     break;
                 }
-                case 'B': {
+                case "Bb":
+                case "A#": {
+                    keys.add(KeyEvent.VK_Z);
+                    break;
+                }
+                case "B": {
                     keys.add(KeyEvent.VK_X);
                     break;
                 }
             }
-            switch(chars[1]) {
-                case '1':
+            switch(octave) {
+                case "1":
                     keys.add(KeyEvent.VK_DOWN);
                     break;
-                case '3':
+                case "3":
                     keys.add(KeyEvent.VK_UP);
                     break;
             }
