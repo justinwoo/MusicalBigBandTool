@@ -18,9 +18,6 @@ public class Transcriber {
     public static List<Integer> transcribe(String note) throws InvalidArgumentException {
         List<Integer> keys = new LinkedList<>();
         if (note.isEmpty()) {
-            keys.add(KeyEvent.VK_Z);
-            keys.add(KeyEvent.VK_X);
-            keys.add(KeyEvent.VK_C);
             return keys;
         } else {
             String pitch;
