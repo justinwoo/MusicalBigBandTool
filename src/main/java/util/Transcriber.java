@@ -3,7 +3,7 @@ package util;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.awt.event.KeyEvent;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Transcriber {
     public static List<Integer> transcribe(String note) throws InvalidArgumentException {
-        List<Integer> keys = new LinkedList<>();
+        List<Integer> keys = new ArrayList<>();
         if (note.isEmpty()) {
             return keys;
         } else {
@@ -30,6 +30,15 @@ public class Transcriber {
                 octave = note.substring(2, 3);
             } else {
                 throw new IllegalArgumentException("Note cannot contain more than three characters");
+            }
+//            octave must be selected before pitch
+            switch(octave) {
+                case "1":
+                    keys.add(KeyEvent.VK_DOWN);
+                    break;
+                case "3":
+                    keys.add(KeyEvent.VK_UP);
+                    break;
             }
             switch(pitch) {
                 case "C": {
@@ -92,14 +101,6 @@ public class Transcriber {
                     keys.add(KeyEvent.VK_X);
                     break;
                 }
-            }
-            switch(octave) {
-                case "1":
-                    keys.add(KeyEvent.VK_DOWN);
-                    break;
-                case "3":
-                    keys.add(KeyEvent.VK_UP);
-                    break;
             }
             return keys;
         }
