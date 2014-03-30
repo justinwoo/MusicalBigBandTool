@@ -94,7 +94,7 @@ public class Application {
         robot.keyPress(KeyEvent.VK_J);
         robot.keyPress(KeyEvent.VK_K);
         robot.keyPress(KeyEvent.VK_L);
-        Thread.sleep(40);
+        Thread.sleep(100);
         robot.keyRelease(KeyEvent.VK_Z);
         robot.keyRelease(KeyEvent.VK_X);
         robot.keyRelease(KeyEvent.VK_C);
